@@ -1,0 +1,38 @@
+# Used for identifying the server for homes, must match the server name in proxy.
+Server-Name: "Server"
+
+# ──────────────────────
+# Database Configuration
+# ──────────────────────
+Database-Details:
+  # The database type to use: SQLite or MySQL
+  Type: "SQLite"
+  # MySQL Configuration
+  Host: ""
+  Database: ""
+  Port: 3306
+  Username: "test"
+  Password: "password"
+
+# ───────────────────
+# Redis Configuration
+# ───────────────────
+Redis-Details:
+  Host: "localhost"
+  Port: 6379
+  Password: ""
+
+# ─────────────────────
+# Message Configuration
+# ─────────────────────
+Messages:
+  No-Permission: "<red>You do not have permission to do that!"
+  Player-Only: "<red>This command can only be run by a player!"
+  Command-Usage: "<red>Usage: /homes <home>"
+  Set-Home-Usage: "<red>Usage: /sethome <home>"
+  Home-Set: "<green>Home set!"
+  Home-Not-Found: "<red>That home does not exist!"
+  Home-Deleted: "<green>Home deleted!"
+  Del-Home-Usage: "<red>Usage: /delhome <home>"
+  Plugin-Reloaded: "<green>Plugin reloaded!"
+  Teleporting: "<green>Teleporting to home <home>..."
