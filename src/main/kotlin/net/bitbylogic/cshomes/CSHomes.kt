@@ -1,5 +1,6 @@
 package net.bitbylogic.cshomes
 
+import com.tcoded.folialib.FoliaLib
 import net.bitbylogic.cshomes.command.CSHomesCommand
 import net.bitbylogic.cshomes.command.DelHomeCommand
 import net.bitbylogic.cshomes.command.HomeCommand
@@ -21,6 +22,7 @@ import java.util.*
 class CSHomes : JavaPlugin() {
 
     lateinit var serverName: String
+    lateinit var foliaLib: FoliaLib
 
     lateinit var database: Database
     lateinit var redisManager: RedisManager
@@ -33,13 +35,14 @@ class CSHomes : JavaPlugin() {
         saveDefaultConfig()
 
         serverName = config.getString("Server-Name", "Server") ?: "Server"
+        foliaLib = FoliaLib(this)
 
         pendingTeleportManager = PendingTeleportManager(this)
 
         setupDatabase()
         setupRedis()
 
-        teleportService = TeleportService(pendingTeleportManager)
+        teleportService = TeleportService(foliaLib, pendingTeleportManager)
 
         val homeCommand = HomeCommand(this)
         val delHomeCommand = DelHomeCommand(this)
@@ -98,15 +101,17 @@ class CSHomes : JavaPlugin() {
     }
 
     private fun setupRedis() {
-        val host = config.getString("Redis-Details.Host", "localhost") ?: "localhost"
-        val port = config.getInt("Redis-Details.Port", 6379)
-        val password = config.getString("Redis-Details.Password", "") ?: ""
+        foliaLib.scheduler.runAsync {
+            val host = config.getString("Redis-Details.Host", "localhost") ?: "localhost"
+            val port = config.getInt("Redis-Details.Port", 6379)
+            val password = config.getString("Redis-Details.Password", "") ?: ""
 
-        this.redisManager = RedisManager(host, port, password, serverName)
-        this.redisClient = redisManager.registerClient(serverName)
+            this.redisManager = RedisManager(host, port, password, serverName)
+            this.redisClient = redisManager.registerClient(serverName)
 
-        redisClient.registerListener(TeleportRequestListener(this, pendingTeleportManager))
-        redisClient.registerListener(TeleportConfirmationListener(this))
+            redisClient.registerListener(TeleportRequestListener(this, pendingTeleportManager))
+            redisClient.registerListener(TeleportConfirmationListener(this))
+        }
     }
 
     private fun cleanup() {

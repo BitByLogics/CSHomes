@@ -30,7 +30,7 @@ class SetHomeCommand(private val plugin: CSHomes) : CommandExecutor {
 
         val homeName = args[0]
 
-        plugin.database.findHome(sender.uniqueId, homeName).thenAcceptSync(plugin) { home ->
+        plugin.database.findHome(sender.uniqueId, homeName).thenAcceptSync(plugin, sender) { home ->
             if (home != null) {
                 sender.sendMessage { MessageUtil.deserialize(plugin.config.getString("Messages.Home-Exists").orEmpty()) }
                 return@thenAcceptSync

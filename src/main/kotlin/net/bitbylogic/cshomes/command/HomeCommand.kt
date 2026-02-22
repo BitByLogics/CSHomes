@@ -34,7 +34,7 @@ class HomeCommand(val plugin: CSHomes) : CommandExecutor, TabCompleter {
 
         val homeName = args[0]
 
-        plugin.database.findHome(sender.uniqueId, homeName).thenAcceptSync(plugin) { home ->
+        plugin.database.findHome(sender.uniqueId, homeName).thenAcceptSync(plugin, sender) { home ->
             if (home == null) {
                 sender.sendMessage { MessageUtil.deserialize(plugin.config.getString("Messages.Home-Not-Found").orEmpty()) }
                 return@thenAcceptSync
@@ -52,7 +52,7 @@ class HomeCommand(val plugin: CSHomes) : CommandExecutor, TabCompleter {
             home.lastUsed = System.currentTimeMillis()
             plugin.database.saveHome(home)
 
-            sender.teleport(location)
+            plugin.foliaLib.scheduler.teleportAsync(sender, location)
         }
 
         return false
