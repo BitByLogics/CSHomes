@@ -3,6 +3,7 @@ version: '1.0.0'
 main: net.bitbylogic.cshomes.CSHomes
 api-version: '1.21'
 authors: [ BitByLogic ]
+folia-supported: true
 commands:
   cshomes:
     aliases: [ csh ]

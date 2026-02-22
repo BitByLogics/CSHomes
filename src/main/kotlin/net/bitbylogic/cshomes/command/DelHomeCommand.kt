@@ -9,6 +9,7 @@ import org.bukkit.command.CommandSender
 import org.bukkit.command.TabCompleter
 import org.bukkit.entity.Player
 import org.bukkit.util.StringUtil
+import sun.net.www.content.text.plain
 
 class DelHomeCommand(private val plugin: CSHomes) : CommandExecutor, TabCompleter {
 
@@ -32,7 +33,7 @@ class DelHomeCommand(private val plugin: CSHomes) : CommandExecutor, TabComplete
 
         val homeName = args[0]
 
-        plugin.database.findHome(sender.uniqueId, homeName).thenAcceptSync(plugin) { home ->
+        plugin.database.findHome(sender.uniqueId, homeName).thenAcceptSync(plugin, sender) { home ->
             if (home == null) {
                 sender.sendMessage { MessageUtil.deserialize(plugin.config.getString("Messages.Home-Not-Found").orEmpty()) }
                 return@thenAcceptSync

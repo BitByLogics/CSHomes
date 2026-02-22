@@ -80,7 +80,11 @@
                             <relocations>
                                 <relocation>
                                     <pattern>net.bitbylogic.rps</pattern>
-                                    <shadedPattern>net.bitbylogic.polls.libs.bitsrps</shadedPattern>
+                                    <shadedPattern>net.bitbylogic.cshomes.libs.bitsrps</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>com.tcoded.folialib</pattern>
+                                    <shadedPattern>net.bitbylogic.cshomes.libs.folialib</shadedPattern>
                                 </relocation>
                             </relocations>
                         </configuration>
@@ -107,6 +111,12 @@
         <repository>
             <id>jitpack.io</id>
             <url>https://jitpack.io</url>
+        </repository>
+
+        <!-- FoliaLib -->
+        <repository>
+            <id>tcoded-releases</id>
+            <url>https://repo.tcoded.com/releases</url>
         </repository>
     </repositories>
 
@@ -162,6 +172,14 @@
             <artifactId>mysql-connector-j</artifactId>
             <version>9.1.0</version>
             <scope>runtime</scope>
+        </dependency>
+
+        <!-- FoliaLib -->
+        <dependency>
+            <groupId>com.tcoded</groupId>
+            <artifactId>FoliaLib</artifactId>
+            <version>0.5.1</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 </project>

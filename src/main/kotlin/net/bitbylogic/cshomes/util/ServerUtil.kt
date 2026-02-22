@@ -1,15 +1,15 @@
 package net.bitbylogic.cshomes.util
 
-import org.bukkit.Bukkit
-import org.bukkit.plugin.java.JavaPlugin
+import net.bitbylogic.cshomes.CSHomes
+import org.bukkit.entity.Player
 import java.util.concurrent.CompletableFuture
 
 class ServerUtil {
 
     companion object {
-        fun <T> CompletableFuture<T>.thenAcceptSync(plugin: JavaPlugin, consumer: (T) -> Unit): CompletableFuture<Void> {
+        fun <T> CompletableFuture<T>.thenAcceptSync(plugin: CSHomes, player: Player, consumer: (T) -> Unit): CompletableFuture<Void> {
             return this.thenAccept { value ->
-                Bukkit.getScheduler().runTask(plugin, Runnable { consumer(value) })
+                plugin.foliaLib.scheduler.runAtEntity(player) { consumer(value) }
             }
         }
     }

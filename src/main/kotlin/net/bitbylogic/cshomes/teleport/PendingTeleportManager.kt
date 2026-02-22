@@ -3,7 +3,6 @@ package net.bitbylogic.cshomes.teleport
 import com.github.benmanes.caffeine.cache.Caffeine
 import net.bitbylogic.cshomes.CSHomes
 import net.bitbylogic.cshomes.home.PlayerHome
-import net.bitbylogic.cshomes.util.ServerUtil.Companion.thenAcceptSync
 import java.util.*
 import java.util.concurrent.TimeUnit
 
@@ -14,10 +13,10 @@ class PendingTeleportManager(val plugin: CSHomes) {
         .build<UUID, PlayerHome>()
 
     fun add(playerId: UUID, homeName: String) {
-        plugin.database.findHome(playerId, homeName).thenAcceptSync(plugin) { home ->
+        plugin.database.findHome(playerId, homeName).thenAccept { home ->
             if (home == null) {
                 plugin.logger.warning("Cannot fulfill home teleport request for player $playerId as home $homeName was not found.")
-                return@thenAcceptSync
+                return@thenAccept
             }
 
             pendingTeleports.put(playerId, home)

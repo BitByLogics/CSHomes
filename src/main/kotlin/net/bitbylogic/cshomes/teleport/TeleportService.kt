@@ -1,11 +1,12 @@
 package net.bitbylogic.cshomes.teleport
 
+import com.tcoded.folialib.FoliaLib
 import org.bukkit.Bukkit
 import org.bukkit.Location
 import org.bukkit.World
 import org.bukkit.entity.Player
 
-class TeleportService(val pendingTeleportManager: PendingTeleportManager) {
+class TeleportService(val foliaLib: FoliaLib, val pendingTeleportManager: PendingTeleportManager) {
 
     fun handleJoin(player: Player) {
         val home = pendingTeleportManager.pop(player.uniqueId) ?: return
@@ -15,7 +16,7 @@ class TeleportService(val pendingTeleportManager: PendingTeleportManager) {
         home.lastUsed = System.currentTimeMillis()
         pendingTeleportManager.plugin.database.saveHome(home)
 
-        player.teleport(location)
+        foliaLib.scheduler.teleportAsync(player, location)
     }
 
 }
