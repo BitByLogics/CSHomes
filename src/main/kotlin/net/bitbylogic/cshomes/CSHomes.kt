@@ -11,7 +11,6 @@ import net.bitbylogic.cshomes.database.impl.SQLiteDatabase
 import net.bitbylogic.cshomes.listener.PlayerListener
 import net.bitbylogic.cshomes.teleport.PendingTeleportManager
 import net.bitbylogic.cshomes.teleport.TeleportService
-import net.bitbylogic.cshomes.teleport.redis.TeleportConfirmationListener
 import net.bitbylogic.cshomes.teleport.redis.TeleportRequestListener
 import net.bitbylogic.rps.RedisManager
 import net.bitbylogic.rps.client.RedisClient
@@ -110,7 +109,6 @@ class CSHomes : JavaPlugin() {
             this.redisClient = redisManager.registerClient(serverName)
 
             redisClient.registerListener(TeleportRequestListener(this, pendingTeleportManager))
-            redisClient.registerListener(TeleportConfirmationListener(this))
         }
     }
 

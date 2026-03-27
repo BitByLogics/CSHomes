@@ -36,3 +36,4 @@ Messages:
   Del-Home-Usage: "<red>Usage: /delhome <home>"
   Plugin-Reloaded: "<green>Plugin reloaded!"
   Teleporting: "<green>Teleporting to home <home>..."
+  Teleporting-Issue: "<red>An error occurred while teleporting!"
